@@ -1,9 +1,10 @@
 # start modules
-
+import pgzrun
 # create constants
-
+WIDTH = 800
+HEIGHT = 600
 # print welcome
-
+print("The game is about to start!")
 # make background
 
 # make bird
@@ -29,3 +30,4 @@
 # moving
 
 # runs everything
+pgzrun.go()
