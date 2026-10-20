@@ -17,7 +17,10 @@ bird.x = 160
 # make pipes
 class Pipes():
     def __init__(self, x, centre, gap):
-        m
+        self.x  = x
+        pipe = Pipes(x, centre)
+        pipe.x = 6
+        
 # draw everything to screen
 def draw():
     nin
