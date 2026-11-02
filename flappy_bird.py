@@ -1,6 +1,6 @@
 # start modules
 from cmath import pi
-
+from random import randint
 import pgzrun
 import sys
 # create constants
@@ -26,39 +26,57 @@ class Pipes():
         self.bottom.y = centre + ((HEIGHT/2)+(gap/2))
         self.bottom.x = x
         
-pipeslist = [
-    Pipes(266, 400, 220),
-    Pipes(532, 180, 220),
-    Pipes(798, 415, 220)
+pipe_1 = Pipes(666, 400, 220)
+pipe_2 = Pipes(932, 280, 220)
+pipe_3 = Pipes(1198, 415, 220)
 
-]
+pipeslist = [pipe_1, pipe_2, pipe_3]
+
+def random_centre():
+    centre = randint(200, 400)
+    return centre
+def random_gap():
+    gap = randint(180, 240)
+    return gap
 
 # draw everything to screen
 def draw():
-    
-    
     # draw background
     background.draw()
     # draw characters
     bird.draw()
+    for pipe in pipeslist:
+        pipe.top.draw()
+        pipe.bottom.draw()
 # update everything
 def update():
-    bird.y = bird.y + 1
+    bird.y = bird.y + 2.5
     # update bird
 
     # update pipes
     for pipe in pipeslist:
-        self.top.x += 5
-        self.bottom.x += 5
+        if pipe.top.x < -44:
+            pipe.top.x = 740
+            pipe.bottom.x = 740
+            gap = random_gap()
+            centre = random_centre()
+            pipe.top.y = centre - ((HEIGHT/2)+(gap/2))
+            pipe.bottom.y = centre + ((HEIGHT/2)+(gap/2))
+        pipe.top.x -= 3
+        pipe.bottom.x -= 3
     # bird hits bottom of screenq
-    if background.y > HEIGHT:
+    if bird.y > HEIGHT:
         print("Game Over!")
         sys.exit()
     # bird hits pipes
-    if bird.colliderect(pipe):
-        print("Hit!")
+    for pipe in pipeslist:
+        if pipe.top.colliderect(bird) or pipe.bottom.colliderect(bird):
+            print("Hit!")
+            print("Game Over!")
+            sys.exit()
+
 # moving
 def on_mouse_down():
-    bird.y - 50
+    bird.y -= 50
 # runs everything
 pgzrun.go()
