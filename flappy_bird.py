@@ -43,7 +43,7 @@ def random_gap():
 
 # draw everything to screen
 def draw():
-    global gameOver, score
+    global gameOver, score, menu
     if gameOver == False:
 
         # draw background
@@ -57,10 +57,10 @@ def draw():
     else:
         screen.fill((0,0,0))
         screen.draw.text("Game Over!", center = (400,300), fontsize = 60)
-        screen.draw.text(f"Score is:{score}",center=(400,450), fontsize = 30)
+        screen.draw.text(f"Score is: {score}",center=(400,450), fontsize = 30)
 # update everything
 def update():
-    global gameOver, score
+    global gameOver, score#, highscore
     if gameOver == False:
         
         
@@ -90,6 +90,9 @@ def update():
                 print("Game Over!")
                 gameOver = True
             # sys.exit()
+
+#def menu():
+
         
 def on_mouse_down():
     bird.y -= 50
