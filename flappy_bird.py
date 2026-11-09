@@ -7,6 +7,7 @@ import sys
 WIDTH = 800
 HEIGHT = 600
 gameOver = False
+menu = True
 score = 0
 # print welcome
 print("The game is about to start!")
@@ -58,6 +59,12 @@ def draw():
         screen.fill((0,0,0))
         screen.draw.text("Game Over!", center = (400,300), fontsize = 60)
         screen.draw.text(f"Score is: {score}",center=(400,450), fontsize = 30)
+
+    if menu == True:
+        bird.draw()
+        background.draw()
+        screen.draw.text("FLAPPY BIRD", centre = (400,300) fontsize = 100)
+
 # update everything
 def update():
     global gameOver, score#, highscore
