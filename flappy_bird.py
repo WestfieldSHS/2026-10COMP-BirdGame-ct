@@ -9,12 +9,21 @@ HEIGHT = 600
 gameOver = False
 menu = True
 score = 0
+status = "menu"
 # print welcome
 print("The game is about to start!")
 # make background
 background = Actor("day")
 background.x = 400
 background.y = 300
+title = Actor("logo")
+title.x = 400
+title.y = 50
+start = Actor("start")
+start.x = 300
+start.y = 100
+starting = Actor("starting")
+gameover = Actor("gameover")
 # make bird
 bird = Actor("bird")
 bird.y = 300
@@ -44,7 +53,7 @@ def random_gap():
 
 # draw everything to screen
 def draw():
-    global gameOver, score, menu
+    global gameOver, score, status
     if gameOver == False:
 
         # draw background
@@ -60,10 +69,15 @@ def draw():
         screen.draw.text("Game Over!", center = (400,300), fontsize = 60)
         screen.draw.text(f"Score is: {score}",center=(400,450), fontsize = 30)
 
-    if menu == True:
+    if status == "menu":
         bird.draw()
         background.draw()
-        screen.draw.text("FLAPPY BIRD", centre = (400,300) fontsize = 100)
+        title.draw()
+
+        
+    elif status == "pre":
+        starting.draw()
+        background.draw()
 
 # update everything
 def update():
@@ -104,4 +118,5 @@ def update():
 def on_mouse_down():
     bird.y -= 50
 # runs everything
-pgzrun.go()
+if menu == False:
+    pgzrun.go() 
