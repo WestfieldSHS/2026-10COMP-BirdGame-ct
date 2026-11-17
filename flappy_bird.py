@@ -6,10 +6,9 @@ import sys
 # create constants
 WIDTH = 800
 HEIGHT = 600
-gameOver = False
 menu = True
 score = 0
-status = "menu"
+status = "game"
 # print welcome
 print("The game is about to start!")
 # make background
@@ -52,9 +51,16 @@ def random_gap():
     return gap
 
 # draw everything to screen
+def bob(self):
+    global tick 
+    if tick < 30:
+        self.x += .5
+    else:
+        self.x -= .5
+
 def draw():
-    global gameOver, score, status
-    if gameOver == False:
+    global score, status
+    if status == "game":
 
         # draw background
         background.draw()
@@ -73,7 +79,6 @@ def draw():
         bird.draw()
         background.draw()
         title.draw()
-
         
     elif status == "pre":
         starting.draw()
@@ -81,8 +86,11 @@ def draw():
 
 # update everything
 def update():
-    global gameOver, score#, highscore
-    if gameOver == False:
+    global status, score#, highscore
+    if status == "menu":
+        bob(bird)
+        bob(title)
+    if status == "game":
         
         
         # update bird
@@ -109,7 +117,6 @@ def update():
             if pipe.top.colliderect(bird) or pipe.bottom.colliderect(bird):
                 print("Hit!")
                 print("Game Over!")
-                gameOver = True
             # sys.exit()
 
 #def menu():
