@@ -7,6 +7,7 @@ import sys
 WIDTH = 800
 HEIGHT = 600
 gameOver = False
+status = "menu"
 score = 0
 # print welcome
 print("The game is about to start!")
@@ -15,9 +16,11 @@ background = Actor("day")
 background.x = 400
 background.y = 300
 # make bird
-bird = Actor("bird")
+bird = Actor("bird2")
 bird.y = 300
 bird.x = 160
+# make bird down
+#birddown = Actor("birddown")
 # make pipes
 class Pipes():
     def __init__(self, x, centre, gap):
@@ -96,5 +99,8 @@ def update():
         
 def on_mouse_down():
     bird.y -= 50
+    bird.angle = 45
+
+
 # runs everything
 pgzrun.go()
