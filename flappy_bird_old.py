@@ -9,6 +9,7 @@ HEIGHT = 600
 gameOver = False
 status = "menu"
 score = 0
+high_score = 0
 # print welcome
 print("The game is about to start!")
 # make background
@@ -20,7 +21,7 @@ bird = Actor("bird2")
 bird.y = 300
 bird.x = 160
 # make bird down
-#birddown = Actor("birddown")
+birddown = Actor("birddown")
 # make pipes
 class Pipes():
     def __init__(self, x, centre, gap):
@@ -46,11 +47,12 @@ def random_gap():
 
 # draw everything to screen
 def draw():
-    global gameOver, score, menu
+    global gameOver, score, status, high_score
     if gameOver == False:
 
         # draw background
         background.draw()
+
         # draw characters
         bird.draw()
         for pipe in pipeslist:
@@ -60,19 +62,39 @@ def draw():
     else:
         screen.fill((0,0,0))
         screen.draw.text("Game Over!", center = (400,300), fontsize = 60)
-        screen.draw.text(f"Score is: {score}",center=(400,450), fontsize = 30)
+        #screen.draw.text(f"Score is: {score}",center=(400,450), fontsize = 30)
+        score_text = font.render(
+            "Score : " + str(score),
+            True,
+            (255,255,255)
+        )
+        high_score_text = font.render(
+            "High Score : " + str(high_score),
+            True,
+            (255,255,0)
+        )
+        
+        screen.blit(score_text,(10,10))
+        screen.blit(high_score_text,(10,45))
+        #screen.draw.text(f"Highscore is: {highscore}", center=(400,500), fontsize=30)
+
+
 # update everything
 def update():
-    global gameOver, score#, highscore
+    global gameOver, score, status, high_score
     if gameOver == False:
-        
+
         
         # update bird
         bird.y = bird.y + 2.5
+
         # update pipes
         for pipe in pipeslist:
+         
             if pipe.top.x < -44:
                 score += 1
+                if score > high_score:
+                    high_score = score
                 pipe.top.x = 740
                 pipe.bottom.x = 740
                 gap = random_gap()
@@ -81,11 +103,13 @@ def update():
                 pipe.bottom.y = centre + ((HEIGHT/2)+(gap/2))
             pipe.top.x -= 3
             pipe.bottom.x -= 3
+            
            
         # bird hits bottom of screen
         if bird.y > HEIGHT:
             print("Game Over!")
             sys.exit()
+        
         # bird hits pipes
         for pipe in pipeslist:
             if pipe.top.colliderect(bird) or pipe.bottom.colliderect(bird):
@@ -99,8 +123,7 @@ def update():
         
 def on_mouse_down():
     bird.y -= 50
-    bird.angle = 45
-
-
+    bird.angle = 0
+    
 # runs everything
 pgzrun.go()
